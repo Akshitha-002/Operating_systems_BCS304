@@ -1,33 +1,68 @@
+
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+#include <windows.h>
 
-int main()
+int main(int argc, char *argv[])
 {
-    pid_t parent = getpid();
-    pid_t pid = fork();
+    // Child process
+    if (argc == 3 && strcmp(argv[1], "--child") == 0)
+    {
+        printf("Child process1 id: %lu\n",
+               (unsigned long)GetCurrentProcessId());
 
-    if (pid == -1)
-    {
-        // error, failed to fork()
-        printf("fork failed\n");
+        printf("Parent process1 id: %s\n", argv[2]);
+
+        printf("\nFiles and directories:\n\n");
+        system("dir");
+
+        return 0;
     }
-    else if (pid > 0)
+
+    // Parent process
+    STARTUPINFOA si;
+    PROCESS_INFORMATION pi;
+    char commandLine[1024];
+    char exePath[MAX_PATH];
+
+    ZeroMemory(&si, sizeof(si));
+    ZeroMemory(&pi, sizeof(pi));
+    si.cb = sizeof(si);
+
+    DWORD parent = GetCurrentProcessId();
+
+    GetModuleFileNameA(NULL, exePath, MAX_PATH);
+
+    sprintf(commandLine, "\"%s\" --child %lu",
+            exePath, (unsigned long)parent);
+
+    if (!CreateProcessA(
+            NULL,
+            commandLine,
+            NULL,
+            NULL,
+            FALSE,
+            0,
+            NULL,
+            NULL,
+            &si,
+            &pi))
     {
-        int status;
-        printf("Parent id: %d\n will be waiting for child to complete\n", getpid());
-        waitpid(pid, &status, 0);
+        printf("Process creation failed: %lu\n",
+               (unsigned long)GetLastError());
+        return 1;
     }
-    else
-    {
-        // we are the child
-        printf("child process1 id: %d\n", (int)getpid());
-        printf("parent process1 id: %d\n", getppid());
-        execl("/bin/ls", "/bin/ls", "-r", "-t", "-l", (char *)0);
-        // execl("/home/manju", "/home/manju", "./a.out", NULL);
-        _exit(EXIT_FAILURE); // exec never returns
-    }
+
+    printf("Parent id: %lu\n",
+           (unsigned long)GetCurrentProcessId());
+
+    printf("Parent will be waiting for child to complete\n");
+
+    // Wait for child process to finish
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
+
+    return 0;
 }
-    

@@ -9,3 +9,9 @@ Simulate the following  CPU scheduling algorithms to find turnaround time and wa
 ### Output
 
 ![Program 2 Output](program2_output.png)
+
+program2.b:
+Simulate the following  CPU scheduling algorithms to find turnaround time and waiting time: b) SJF 
+## SJF Program Output
+
+![SJF Output](program2_SJF.png.png)

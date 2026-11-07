@@ -3,7 +3,9 @@ Develop a C Program to Implement the process System call(fork(), exec(), wait(),
 ## Output
 
 ![Program Output](process_system_calls.png)
-Program 2:
+
+
+Program 2.a:
 Simulate the following  CPU scheduling algorithms to find turnaround time and waiting time:  a) FCFS  b) SJF c) Round Robin d) Priority. 
 
 ### Output
@@ -15,7 +17,14 @@ Simulate the following  CPU scheduling algorithms to find turnaround time and wa
 ## SJF Program Output
 
 ![SJF Output](program2_SJF.png.png)
+
+
 program 2.c:
 Simulate the following  CPU scheduling algorithms to find turnaround time and waiting time: c)round robin
 ##output
 ![Round_Robin-output](program2_RR.png)
+
+program 2.d:
+Simulate the following  CPU scheduling algorithms to find turnaround time and waiting time: d)priority
+##output
+![Priority-output](program2_Priority.png)

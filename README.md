@@ -15,3 +15,7 @@ Simulate the following  CPU scheduling algorithms to find turnaround time and wa
 ## SJF Program Output
 
 ![SJF Output](program2_SJF.png.png)
+program 2.c:
+Simulate the following  CPU scheduling algorithms to find turnaround time and waiting time: c)round robin
+##output
+![Round_Robin-output](program2_RR.png)

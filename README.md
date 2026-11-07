@@ -28,3 +28,10 @@ program 2.d:
 Simulate the following  CPU scheduling algorithms to find turnaround time and waiting time: d)priority
 ##output
 ![Priority-output](program2_Priority.png)
+
+
+
+program 3:
+Develop a C program to simulate Producer-Consumer Problem using semaphores
+##output
+![Producer-consumer-output](program3.png)
